@@ -3,6 +3,8 @@
 ## Dotfiles
 This repository stores my desktop configuration. The main branch will keep updated with the configuration on my computer.
 
+This fork is based on [Cascade's repository](https://github.com/Isoheptane/dotfiles)
+
 ### Before Using
 Some of the configurations may not fit your environment and may require special attention.
 
@@ -13,11 +15,12 @@ Some of the configurations may not fit your environment and may require special 
 ### Font Requirements
 | Font | Required by |
 | :--- | :---------- |
-| Inconsolata | Waybar, tofi, Alacritty |
+| Inconsolata | Waybar, tofi |
 | Symbols Nerd Font | Waybar |
 | Fira Code | fontconfig (Font Fallback) |
 | Noto Sans CJK TC | Mako, fontconfig (Font Fallback) |
 | Noto Sans CJK SC | Mako, fcitx5 |
+| MesloLGS Nerd Font Mono | Alacritty |
 
 
 ### Port & Customization
@@ -26,6 +29,6 @@ Also, some of the configurations may not fit your environment. Here listed some 
 ### PC Build
 | Component | Name |
 | --------: | - |
-| CPU | AMD Ryzen 7 3700X <br/> AMD Ryzen 7 5700X |
-| Graphics | NVIDIA GeForce RTX 2060 SUPER |
-| Monitor | 2560x1080 @ 200Hz <br/> 2560x1440 @ 165Hz <br/> 1920x1200 @ 144Hz |
+| CPU | AMD Ryzen 9 7945HX |
+| Graphics | NVIDIA GeForce RTX 4060 Laptop |
+| Monitor | 2560x1600 @ 240Hz |

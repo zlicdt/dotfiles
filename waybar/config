@@ -94,7 +94,7 @@
         "ignored-sinks": ["AudioRelay Virtual Sink", "Recorder Sink"]
     },
     "battery": {
-        "bat": "BAT2",
+        "bat": "BAT0",
         "interval": 60,
         "states": {
             "warning": 30,
