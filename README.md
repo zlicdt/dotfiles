@@ -1,4 +1,4 @@
-![Preview](screenshot.jpg)
+![Preview](screenshot.png)
 
 ## Dotfiles
 This repository stores my desktop configuration. The main branch will keep updated with the configuration on my computer.
