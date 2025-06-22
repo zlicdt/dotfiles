@@ -20,7 +20,7 @@ Some of the configurations may not fit your environment and may require special 
 | Fira Code | fontconfig (Font Fallback) |
 | Noto Sans CJK TC | Mako, fontconfig (Font Fallback) |
 | Noto Sans CJK SC | Mako, fcitx5 |
-| MesloLGS Nerd Font Mono | Alacritty |
+| MesloLGS Nerd Font Mono | Kitty |
 
 
 ### Port & Customization

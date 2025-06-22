@@ -20,10 +20,13 @@
         "on-scroll-down": "hyprctl dispatch workspace e-1",
         "format-icons": {
 		    "1": "\uf303",
-            "2": "\uf121",
-		    "3": "\uf484",
-            "4": "\uf013",
-            "5": "\uf11b"
+			"2": "\uf120",
+            "3": "\uf121",
+		    "4": "\uf484",
+            "5": "\uf013",
+            "6": "\uf11b",
+			"7": "\uf001",
+			"8": "\ue217"
 	    }
     },
     "hyprland/window": {
@@ -93,16 +96,16 @@
         "on-click-right": "pavucontrol",
         "ignored-sinks": ["AudioRelay Virtual Sink", "Recorder Sink"]
     },
-    "battery": {
-		"bat": "BAT0",
-		"adapter": "ADP0",
-		"interval": 60,
-        "states": {
-            "warning": 30,
-            "critical": 15
-        },
-        "format": "{capacity}% {icon}",
-        "format-icons": ["", "", "", "", ""],
-        "max-length": 25
-    }
+	"battery": {
+		"states": {
+			"good": 95,
+      		"warning": 30,
+      		"critical": 20
+    	},
+    	"format": "{icon} {capacity}%",
+    	"format-charging": " {capacity}%",
+    	"format-plugged": " {capacity}%",
+    	"format-alt": "{time} {icon}",
+    	"format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+  },
 }

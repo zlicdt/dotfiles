@@ -104,6 +104,10 @@ tooltip {
     color: #eefff1;
 }
 
+#battery {
+	color: #ffffff;
+}
+
 #cpu {
     color: #FE968B;
 }
