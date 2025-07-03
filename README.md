@@ -21,7 +21,7 @@ Some of the configurations may not fit your environment and may require special 
 | Noto Sans CJK TC | Mako, fontconfig (Font Fallback) |
 | Noto Sans CJK SC | Mako, fcitx5 |
 | MesloLGS Nerd Font Mono | Kitty |
-
+| Monaco | Hyprlock |
 
 ### Port & Customization
 Also, some of the configurations may not fit your environment. Here listed some important configurations of them.
