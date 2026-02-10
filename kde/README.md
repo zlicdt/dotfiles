@@ -8,6 +8,8 @@ Some of the configurations may not fit your environment and may require special 
 
 Removed `fontconfig` because of the Chinese font switch to the `misans` font. This is an AUR package.
 
+The `.zshrc` is suite with Oh My Zsh. Please install it first before use this `.zshrc`. It alias ls -> eza, cat -> bat. And also fix for npm global package PATH.
+
 ### Installed applications
 | KDE app groups(as package) |
 | :--- |
