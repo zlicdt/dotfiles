@@ -11,6 +11,11 @@ Removed `fontconfig` because of the Chinese font switch to the `misans` font. Th
 The `.zshrc` is suite with Oh My Zsh. Please install it first before use this `.zshrc`. It alias ls -> eza, cat -> bat. And also fix for npm global package PATH.
 
 ### Installed applications
+Package Collection
+```
+pacstrap /mnt base linux-zen linux-firmware linux-zen-headers base-devel git zsh zsh-completions bash-completion grub efibootmgr networkmanager openssh vim plasma kde-utilities kde-system fcitx5-chinese-addons fcitx5-gtk fcitx5-configtool fastfetch btop eza bat ntfs-3g os-prober
+```
+
 | KDE app groups(as package) |
 | :--- |
 | plasma |
@@ -26,6 +31,8 @@ The `.zshrc` is suite with Oh My Zsh. Please install it first before use this `.
 | netease-cloud-music-web-player | Netease Cloud Music |
 | kwin-effect-rounded-corners | Apply round corner for electron apps|
 | visual-studio-code-bin | The VSCode |
+| hmcl-bin | Minecraft Launcher |
+| npm | Node.js package manager(w/ set global package PATH) |
 
 ### Font Requirements
 | Font(as package) | Required by |
