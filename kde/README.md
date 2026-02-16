@@ -16,6 +16,10 @@ Package Collection
 pacstrap /mnt base linux-zen linux-firmware linux-zen-headers base-devel git zsh zsh-completions bash-completion grub efibootmgr networkmanager openssh vim plasma kde-utilities kde-system fcitx5-chinese-addons fcitx5-gtk fcitx5-configtool fastfetch btop eza bat ntfs-3g os-prober
 ```
 
+| Dev |
+| :-- |
+| rust |
+
 | KDE app groups(as package) |
 | :--- |
 | plasma |
