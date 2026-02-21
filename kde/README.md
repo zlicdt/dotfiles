@@ -19,6 +19,7 @@ pacstrap /mnt base linux-zen linux-firmware linux-zen-headers base-devel git zsh
 | Dev |
 | :-- |
 | rust |
+| archiso |
 
 | KDE app groups(as package) |
 | :--- |
@@ -42,7 +43,8 @@ pacstrap /mnt base linux-zen linux-firmware linux-zen-headers base-devel git zsh
 | Font(as package) | Required by |
 | :--- | :---------- |
 | ttf-jetbrains-mono-nerd | Konsole, Visual Studio Code |
-| misans(AUR) | Chinese font |
+| ttf-harmonyos-sans(AUR) | Chinese font |
+| adobe-source-han-sans-kr-fonts | Korean font |
 
 ### Port & Customization
 Also, some of the configurations may not fit your environment. Here listed some important configurations of them.
