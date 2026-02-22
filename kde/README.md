@@ -34,7 +34,7 @@ pacstrap /mnt base linux-zen linux-firmware linux-zen-headers base-devel git zsh
 | linuxqq | Chat |
 | microsoft-edge-stable-bin | Browser |
 | netease-cloud-music-web-player | Netease Cloud Music |
-| kwin-effect-rounded-corners | Apply round corner for electron apps |
+| kwin-effect-rounded-corners-git | Apply round corner for electron apps |
 | catppuccin-konsole-theme-git | Catppuccin theme for Konsole |
 | visual-studio-code-bin | The VSCode |
 | hmcl-bin | Minecraft Launcher |
