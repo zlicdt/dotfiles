@@ -19,6 +19,7 @@ pacstrap /mnt base linux-zen linux-firmware linux-zen-headers base-devel git zsh
 | Dev |
 | :-- |
 | rust |
+| devtools |
 | archiso |
 
 | KDE app groups(as package) |
