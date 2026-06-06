@@ -1,5 +1,0 @@
-alias ls="exa"
-alias ll="exa -lh"
-alias la="exa -Alh"
-alias l="exa -alh"
-alias lsa="exa -alh"

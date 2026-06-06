@@ -21,13 +21,10 @@ Removed `fontconfig` because of the Chinese font switch to the `misans` font. Th
 ### Font Requirements
 | Font | Required by |
 | :--- | :---------- |
-| Inconsolata | Waybar, tofi |
-| Symbols Nerd Font | Waybar |
-| Fira Code | fontconfig (Font Fallback) |
-| Noto Sans CJK TC | Mako |
-| Noto Sans CJK SC | Mako, fcitx5 |
-| MesloLGS Nerd Font Mono | Kitty |
-| Monaco | Hyprlock |
+| UbuntuMono Nerd Font | Waybar, Hyprlock |
+| HarmonyOS Sans SC | Mako, fcitx5 |
+| UbuntuMono Nerd Font Mono | Kitty |
+| HarmonyOS Sans, adobe-source-han-sans-kr-fonts | Mostly used in UI |
 
 ### Port & Customization
 Also, some of the configurations may not fit your environment. Here listed some important configurations of them.

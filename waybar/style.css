@@ -16,12 +16,12 @@ window#waybar {
 
 .modules-center {
     border-radius: 100px;
-    background-color: rgba(18, 18, 18, 1.0);
+    background-color: rgba(18, 18, 18, 0.4);
 }
 
 .modules-right {
     border-radius: 100px;
-    background-color: rgba(18, 18, 18, 1.0);
+    background-color: rgba(255, 255, 255, 0.2);
     padding: 0 8px;
 }
 
@@ -30,7 +30,7 @@ tooltip {
     border: 1px solid rgba(34, 34, 34, 0.5);
     border-radius: 15px;
 
-    font-family: "Inconsolata SemiBold", "Symbols Nerd Font";
+    font-family: "UbuntuMono Nerd Font";
     font-size: 16px;
 }
 
@@ -38,7 +38,7 @@ tooltip {
 #cpu,
 #memory,
 #network,
-#pulseaudio,
+#wireplumber,
 #tray,
 #mode,
 #window,
@@ -48,7 +48,7 @@ tooltip {
     padding: 0px 6px 0px 6px;
     background-color: transparent;
 
-    font-family: "Inconsolata SemiBold", "Symbols Nerd Font";
+    font-family: "UbuntuMono Nerd Font";
     font-size: 16px;
 }
 
@@ -105,7 +105,7 @@ tooltip {
 }
 
 #battery {
-	color: #ffffff;
+	color: #ffffe5;
 }
 
 #cpu {
@@ -116,7 +116,7 @@ tooltip {
     color: #FFEAAA;
 }
 
-#pulseaudio {
+#wireplumber {
     color: #a4e4fe;
 }
 
@@ -126,7 +126,7 @@ tooltip {
 
 #tray {
     /* border: rgba(255, 255, 255, 0.2) solid 2px; */
-    color: transparent;
+    color: rgba(255, 255, 255, 0.9);
 }
 
 #window {

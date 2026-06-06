@@ -9,24 +9,24 @@
     "height": 36,
     "modules-left": ["hyprland/window"],
     "modules-center": ["hyprland/workspaces"],
-    "modules-right": ["tray", "pulseaudio", "network", "memory", "cpu", "battery", "clock"],
+    "modules-right": ["tray", "wireplumber", "network", "memory", "cpu", "battery", "clock"],
     "hyprland/workspaces": {
         "format": "{icon}",
         "persistent-workspaces": {
-            "*": 10
+            "*": 8
         },
         "on-click": "activate",
         "on-scroll-up": "hyprctl dispatch workspace e+1",
         "on-scroll-down": "hyprctl dispatch workspace e-1",
         "format-icons": {
-		    "1": "\uf303",
-			"2": "\uf120",
+            "1": "\uf303",
+            "2": "\uf120",
             "3": "\uf121",
-		    "4": "\uf484",
+            "4": "\uf484",
             "5": "\uf013",
             "6": "\uf11b",
-			"7": "\uf001",
-			"8": "\ue217"
+            "7": "\uf001",
+            "8": "\ue217"
 	    }
     },
     "hyprland/window": {
@@ -42,7 +42,7 @@
         "format": "\uf017 {:%H:%M:%S}",
         "format-alt": "\uf133 {:%Y-%m-%d %H:%M:%S}",
         "tooltip-format": "{calendar}",
-		"timezone": "Asia/Chongqing",
+		"timezone": "Asia/Shanghai",
         "calendar": {
             "mode"          : "month",
             "mode-mon-col"  : 3,
@@ -66,25 +66,25 @@
     },
     "cpu": {
         "interval": 1,
-        "format": "\uf4bc {usage:1}%",
+        "format": "\uf4bc  {usage:1}%",
         "tooltip": true
     },
     "memory": {
         "interval": 1,
-        "format": "\uefc5 {used:0.1f}G",
+        "format": "\uefc5  {used:0.1f}G",
         "tooltip": true,
         "tooltip-format": " RAM: {used:0.2f}G / {total:0.2f}G\nSwap: {swapUsed:0.2f}G / {swapTotal:0.2f}G"
     },
     "network": {
         "interval": 1,
-        "format-wifi": "\uf1eb {essid} ({signalStrength}%)",
-        "format-ethernet": "\uef09 {ifname}",
-        "format-linked": "\ueb32 No IP ({ifname})",
-        "format-disconnected": "\uf071 Disconnected",
+        "format-wifi": "\uf1eb  {essid} ({signalStrength}%)",
+        "format-ethernet": "\uef09  {ifname}",
+        "format-linked": "\ueb32  No IP ({ifname})",
+        "format-disconnected": "\uf071  Disconnected",
         "tooltip-format": "{ifname}: {ipaddr}/{cidr}, Gateway: {gwaddr}",
-        "format-alt": "\uef09 {ipaddr}/{cidr}"
+        "format-alt": "\uef09  {ipaddr}/{cidr}"
     },
-    "pulseaudio": {
+    "wireplumber": {
         "scroll-step": 5,
         "format": "{icon} {volume:2}%",
         "format-muted": "\ueee8",
@@ -96,16 +96,17 @@
         "on-click-right": "pavucontrol",
         "ignored-sinks": ["AudioRelay Virtual Sink", "Recorder Sink"]
     },
-	"battery": {
-		"states": {
-			"good": 95,
+    "battery": {
+        "interval": 1,
+	"states": {
+		"good": 95,
       		"warning": 30,
       		"critical": 20
     	},
-    	"format": "{icon} {capacity}%",
-    	"format-charging": " {capacity}%",
-    	"format-plugged": " {capacity}%",
+        "format": "{icon}   {capacity}%",
+    	"format-charging": "\uee9e {capacity}%",
+    	"format-plugged": "\uee9e {capacity}%",
     	"format-alt": "{time} {icon}",
-    	"format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
-  },
+    	"format-icons": ["\uf244", "\uf243", "\uf242", "\uf241", "\uf240"]
+    }
 }

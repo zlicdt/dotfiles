@@ -10,7 +10,7 @@ icons=1
 max-icon-size=48
 default-timeout=5000
 ignore-timeout=0
-font=Noto Sans CJK SC 10
+font=HarmonyOS Sans SC 10
 margin=12
 padding=12,20
 
