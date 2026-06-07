@@ -25,13 +25,13 @@ Please read this README carefully before using this dotfiles.
 
 For Arch Linux, you can:
 ```bash
-pacstrap /mnt base linux-zen linux-firmware linux-zen-headers base-devel git zsh zsh-completions bash-completion btrfs-progs grub efibootmgr networkmanager openssh vim fcitx5-chinese-addons fcitx5-gtk fcitx5-configtool fastfetch btop eza os-prober hyprland hypridle hyprlock hyprpaper xdg-desktop-portal-hyprland mako pipewire wireplumber
+pacstrap /mnt base linux-zen linux-firmware linux-zen-headers base-devel git zsh zsh-completions bash-completion btrfs-progs grub efibootmgr networkmanager openssh vim fcitx5-chinese-addons fcitx5-gtk fcitx5-configtool fastfetch btop eza os-prober
 ```
 This will use zen-kernel, btrfs and fcitx5 as IM. If you are not East Asian, the fcitx5-* is no need.
 
 To install Hyprland ecosystem, do:
 ```bash
-pacman -S hyprland hypridle hyprlock hyprpaper xdg-desktop-portal-hyprland mako waybar kitty uwsm pipewire wireplumber qt5-wayland qt6-wayland firefox nautilus
+pacman -S hyprland hypridle hyprlock hyprpaper xdg-desktop-portal-hyprland mako waybar kitty uwsm pipewire wireplumber pipewire-pulse pipewire-alsa qt5-wayland qt6-wayland firefox nautilus
 ```
 
 And for the screenshot, do:
