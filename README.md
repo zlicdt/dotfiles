@@ -96,6 +96,26 @@ Search `proxy` and `PROXY`, remove related lines.
 
 This setup is for [sparkle-bin](https://aur.archlinux.org/packages/sparkle-bin)
 
+#### Zsh topics
+If you are using zsh, you can copy my `bonus/.zshrc` with some package requirements
+```bash
+pacman -S zsh-syntax-highlighting zsh-autosuggestions # fish-style suggest
+pacman -S pkgfile # command-not-found hook
+sudo pkgfile -u
+```
+
+And omz installation:
+```bash
+git clone https://github.com/ohmyzsh/ohmyzsh ~/.oh-my-zsh
+```
+
+With powerlevel10k:
+```bash
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
+```
+
+Enjoy that.
+
 ### Font Requirements
 | Font | Required by |
 | :--- | :---------- |
