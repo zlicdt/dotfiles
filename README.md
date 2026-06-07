@@ -3,9 +3,7 @@
 ## Dotfiles
 This repository stores my desktop configuration. The main branch will keep updated with the configuration on my computer.
 
-By the way, I switched to KDE now. Maybe there have some outdated item.
-
-Check `kde` folder for KDE settings config.
+My KDE configs are also available. Check `kde` folder for KDE settings config.
 
 This fork is based on [Cascade's repository](https://github.com/Isoheptane/dotfiles)
 
@@ -33,6 +31,7 @@ To install Hyprland ecosystem, do:
 ```bash
 pacman -S hyprland hypridle hyprlock hyprpaper xdg-desktop-portal-hyprland mako waybar kitty uwsm pipewire wireplumber pipewire-pulse pipewire-alsa qt5-wayland qt6-wayland firefox nautilus
 ```
+> Don't forget to enable pipewire.service and wireplumber.service, otherwise you won't have sound in this system.
 
 And for the screenshot, do:
 ```bash
