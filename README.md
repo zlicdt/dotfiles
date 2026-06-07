@@ -43,5 +43,5 @@ PC 2:
 | Component | Name |
 | --------: | - |
 | CPU | AMD Ryzen 7 9700X, AMD Ryzen 9 9950X |
-| Graphics | NVIDIA GeForce RTX 3080 |
-| Monitor | 2560x1440 @ 165Hz, 3840x2160 @ 160Hz |
+| Graphics | NVIDIA GeForce RTX 5070 Ti |
+| Monitor | 3840x2160 @ 160Hz |
