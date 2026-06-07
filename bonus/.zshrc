@@ -114,7 +114,7 @@ alias ls="eza"
 # export LANG=zh_CN.UTF-8
 export LANG=en_US.UTF-8
 
-if uwsm check may-start; then
+if uwsm check may-start && uwsm select; then
     exec uwsm start default
 fi
 

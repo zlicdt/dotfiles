@@ -67,7 +67,7 @@ For Display Manager by uwsm (similar to sddm or gdm), a TUI DM, already installe
 
 You should put these thing to your shell profiles, e.g. `.zshrc`, `.bashrc`, `.zprofile` etc. I suggest `.zshrc` if you're using zsh.
 ```bash
-if uwsm check may-start; then
+if uwsm check may-start && uwsm select; then
     exec uwsm start default
 fi
 ```
