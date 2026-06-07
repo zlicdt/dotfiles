@@ -45,9 +45,17 @@ git clone https://github.com/zlicdt/dotfiles && cd dotfiles
 # note: this is irreversible operation, carefully thinking any important things under .config
 ./install.sh
 ```
+> Maybe I can write a more intelligent install.sh next time...
 
 For NVIDIA GPUs driver installation, check https://wiki.archlinux.org/title/NVIDIA
 
+The configs is installed in `~/.config/`.
+
+**If you know what you are doing, you can easily remove the lines for features you don't use.**
+
+The font requirements is in next charapter. You can change that by edit the config file for each program.
+
+#### Monitors
 After install, you should take care of the beginning of .config/hypr/hyprland.conf:
 ```
 monitor = , 2560x1600@240, auto, 1.6
@@ -55,9 +63,15 @@ monitor = , 3840x2160@160, auto, 2
 ```
 Which is the monitor you plug on, please modify it to fit your machine.
 
-**If you know what you are doing, you can easily remove the lines for features you don't use.**
+#### Display Manager
+For Display Manager by uwsm (similar to sddm or gdm), a TUI DM, already installed in previous command.
 
-The font requirements is in next charapter. You can change that by edit the config file for each program.
+You should put these thing to your shell profiles, e.g. `.zshrc`, `.bashrc`, `.zprofile` etc. I suggest `.zshrc` if you're using zsh.
+```bash
+if uwsm check may-start; then
+    exec uwsm start default
+fi
+```
 
 #### NVIDIA variables
 You may see this at about line 243, please remove these if and only if you are not using any NVIDIA GPUs.
