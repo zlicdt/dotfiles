@@ -10,9 +10,9 @@ This fork is based on [Cascade's repository](https://github.com/Isoheptane/dotfi
 ### Before Using
 Some of the configurations may not fit your environment and may require special attention.
 
-`hypr/hyprland.conf` have special configurations for **NVIDIA grapics cards**. If you are using other graphics adapters, you may need to remove these configs. 
+`hypr/hyprland.lua` have special configurations for **NVIDIA grapics cards**. If you are using other graphics adapters, you may need to remove these configs. 
 
-`hypr/hyprland.conf` configured **proxy environment variables**. Remove these proxy settings if you are not using proxy.
+`hypr/hyprland.lua` configured **proxy environment variables**. Remove these proxy settings if you are not using proxy.
 
 Removed `fontconfig` because of the Chinese font switch to the `misans` font. This is an AUR package.
 
@@ -55,7 +55,7 @@ The configs is installed in `~/.config/`.
 The font requirements is in next charapter. You can change that by edit the config file for each program.
 
 #### Monitors
-After install, you should take care of the beginning of .config/hypr/hyprland.conf:
+After install, you should take care of the beginning of .config/hypr/hyprland.lua:
 ```
 monitor = , 2560x1600@240, auto, 1.6
 monitor = , 3840x2160@160, auto, 2

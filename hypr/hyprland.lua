@@ -171,12 +171,12 @@ hl.window_rule({ match = { title = "Qt 5 Configuration Tool" }, float = true })
 hl.window_rule({ match = { title = "Qt 6 Configuration Tool" }, float = true })
 hl.window_rule({ match = { title = "Fcitx Configuration" }, float = true })
 hl.window_rule({ match = { class = "org.gnome.Nautilus" }, float = true })
-hl.window_rule({
-    match = { class = "firefox" },
-    float = true,
-    center = true,
-    size = {"monitor_w*0.75", "monitor_h*0.75"},
-})
+-- hl.window_rule({
+--     match = { class = "firefox" },
+--     float = true,
+--     center = true,
+--     size = {"monitor_w*0.75", "monitor_h*0.75"},
+-- })
 hl.window_rule({ match = { class = "qemu.*" }, float = true })
 hl.window_rule({
     match = { class = "org.telegram.desktop", title = "Media viewer" },
@@ -220,7 +220,7 @@ bindExec("Print", "grim - | wl-copy")
 bindExec(mainMod .. " + SHIFT + P", "/opt/sparkle/sparkle --enable-features=UseOzonePlatform --ozone-platform=wayland")
 bindExec(mainMod .. " + SHIFT + B", "firefox")
 bindExec(mainMod .. " + SHIFT + Q", "linuxqq --enable-features=UseOzonePlatform --ozone-platform=wayland --enable-wayland-ime")
-bindExec(mainMod .. " + SHIFT + T", "telegram-desktop")
+bindExec(mainMod .. " + SHIFT + T", "Telegram")
 bindExec(mainMod .. " + SHIFT + C", "code --ozone-platform=wayland --enable-wayland-ime")
 
 -- Move focus with mainMod + arrow keys

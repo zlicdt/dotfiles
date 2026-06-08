@@ -282,7 +282,7 @@ print_post_install_notes() {
     cat <<EOF
 
 Post-install notes:
-  - Review monitor settings at: $CONFIG_HOME/hypr/hyprland.conf
+  - Review monitor settings at: $CONFIG_HOME/hypr/hyprland.lua
   - Remove NVIDIA environment variables if this machine does not use NVIDIA.
   - Remove proxy variables if this machine does not use your proxy setup.
   - Fonts listed in README.md still need to be installed:
