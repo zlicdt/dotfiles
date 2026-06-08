@@ -103,7 +103,7 @@
       		"warning": 30,
       		"critical": 20
     	},
-        "format": "{icon}   {capacity}%",
+        "format": "{icon}  {capacity}%",
     	"format-charging": "\uee9e {capacity}%",
     	"format-plugged": "\uee9e {capacity}%",
     	"format-alt": "{time} {icon}",
