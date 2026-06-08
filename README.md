@@ -42,9 +42,9 @@ Install my dotfiles:
 ```bash
 git clone https://github.com/zlicdt/dotfiles && cd dotfiles
 # note: this is irreversible operation, carefully thinking any important things under .config
-./install.sh
+./cp.sh
 ```
-> Maybe I can write a more intelligent install.sh next time...
+> There is one more intelligent script install.sh. But I suggest to do these by yourself, because that install.sh was vibed and need more test ;)
 
 For NVIDIA GPUs driver installation, check https://wiki.archlinux.org/title/NVIDIA
 
