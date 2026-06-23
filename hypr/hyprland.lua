@@ -25,10 +25,10 @@ end
 -- hl.monitor({ output = "DP-3", mode = "2560x1080@200", position = "0x0", scale = "1.0" })
 -- For other users, please modify monitors to fit your configuration
 hl.monitor({
-    output = "",
+    output = "eDP-1",
     mode = "2560x1600@240",
     position = "auto",
-    scale = "1.6",
+    scale = "1.33",
 })
 
 hl.monitor({
