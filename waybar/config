@@ -107,7 +107,7 @@
         "format": "{icon}  {capacity}%",
     	"format-charging": "\uee9e {capacity}%",
     	"format-plugged": "\uee9e {capacity}%",
-    	"format-alt": "{time} {icon}",
+    	"format-alt": "{icon} ",
     	"format-icons": ["\uf244", "\uf243", "\uf242", "\uf241", "\uf240"]
     }
 }
