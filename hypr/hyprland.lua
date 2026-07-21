@@ -260,7 +260,7 @@ bind(mainMod .. " + SHIFT + comma", hl.dsp.workspace.move({ monitor = "l" }))
 bind(mainMod .. " + SHIFT + period", hl.dsp.workspace.move({ monitor = "r" }))
 
 -- Switch theme
-bindExec(mainMod .. " + SHIFT + D", themeScript .. " toggle ")
+bindExec(mainMod .. " + D", themeScript .. " toggle ")
 
 -- Bind workspaces
 hl.workspace_rule({ workspace = "r[1-10]", monitor = "0" })
