@@ -8,6 +8,7 @@ local proxyHttp = "http://127.0.0.1:7890"
 local mainMod = "SUPER"
 
 local switchScript = "~/.config/hypr/switch_workspace.sh"
+local themeScript = "~/.config/hypr/switch_theme.sh"
 
 local function bind(keys, dispatcher, opts)
     return hl.bind(keys, dispatcher, opts)
@@ -258,6 +259,9 @@ bind(mainMod .. " + SHIFT + X", hl.dsp.window.move({ workspace = "special" }))
 bind(mainMod .. " + SHIFT + comma", hl.dsp.workspace.move({ monitor = "l" }))
 bind(mainMod .. " + SHIFT + period", hl.dsp.workspace.move({ monitor = "r" }))
 
+-- Switch theme
+bindExec(mainMod .. " + SHIFT + D", themeScript .. " toggle ")
+
 -- Bind workspaces
 hl.workspace_rule({ workspace = "r[1-10]", monitor = "0" })
 hl.workspace_rule({ workspace = "r[11-20]", monitor = "1" })
@@ -298,7 +302,7 @@ hl.env("__GLX_VENDOR_LIBRARY_NAME", "nvidia")
 hl.env("WLR_NO_HARDWARE_CURSORS", "1")
 
 -- Other Environment
-hl.env("QT_QPA_PLATFORMTHEME", "qt5ct")
+hl.env("QT_QPA_PLATFORMTHEME", "gtk3")
 
 -- Proxy, configure it properly for your application
 hl.env("ALL_PROXY", proxySocks5)
