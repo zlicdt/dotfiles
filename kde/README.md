@@ -1,7 +1,36 @@
-![Preview](screenshot.png)
-
 ## kde
 This repository stores my desktop configuration. The main branch will keep updated with the configuration on my computer.
+
+### Restore Konsole and KDE appearance
+This directory contains a portable snapshot of the current Plasma 6 appearance:
+
+- Konsole `clipsneko` profile with the bundled Catppuccin Mocha color scheme
+- Breeze Dark colors, Breeze widgets and icons, and the Breeze Light cursor
+- The `ayaws` global theme, current wallpaper, desktop layout, and bottom panel
+- Breeze window decoration, title-bar button order, and rounded-corner effect settings
+
+On an Arch Linux Plasma 6 system, install the dependencies first:
+
+```bash
+sudo pacman -S ttf-ubuntu-mono-nerd
+# Install kwin-effect-rounded-corners-git from the AUR as well.
+```
+
+Run the installer from this directory after logging in to Plasma:
+
+```bash
+./install.sh
+```
+
+The installer backs up changed files under `~/.config-dotfiles-backup`, installs
+the theme using the target user's XDG paths, and asks before replacing the
+current desktop and panel layout. Use `./install.sh -y` for an unattended new
+system install, or `./install.sh --install-only` when no Plasma session is
+running.
+
+Display scaling, monitor output settings, mouse device settings, virtual desktop
+IDs, and tiling layouts are intentionally not copied because they are tied to a
+specific machine or Plasma session.
 
 ### Before Using
 Some of the configurations may not fit your environment and may require special attention.
@@ -30,13 +59,11 @@ pacstrap /mnt base linux-zen linux-firmware linux-zen-headers base-devel git zsh
 
 | App(as package) | Usage |
 | :--- | :--- |
-| klassy | Adjust title bar for window |
 | sparkle-bin | VPN |
 | linuxqq | Chat |
 | microsoft-edge-stable-bin | Browser |
 | netease-cloud-music-web-player | Netease Cloud Music |
 | kwin-effect-rounded-corners-git | Apply round corner for electron apps |
-| catppuccin-konsole-theme-git | Catppuccin theme for Konsole |
 | visual-studio-code-bin | The VSCode |
 | hmcl-bin | Minecraft Launcher |
 | npm | Node.js package manager(w/ set global package PATH) |
@@ -44,7 +71,7 @@ pacstrap /mnt base linux-zen linux-firmware linux-zen-headers base-devel git zsh
 ### Font Requirements
 | Font(as package) | Required by |
 | :--- | :---------- |
-| ttf-jetbrains-mono-nerd | Konsole, Visual Studio Code |
+| ttf-ubuntu-mono-nerd | Konsole |
 | ttf-harmonyos-sans(AUR) | Chinese font |
 | adobe-source-han-sans-kr-fonts | Korean font |
 

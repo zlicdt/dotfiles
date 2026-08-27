@@ -106,5 +106,4 @@ source $ZSH/oh-my-zsh.sh
 PATH="$HOME/.local/bin:$PATH"
 export npm_config_prefix="$HOME/.local"
 
-alias cat="bat"
 alias ls="eza"

@@ -1,0 +1,283 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+readonly REPO_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+readonly CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+readonly DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
+readonly BACKUP_ROOT="$HOME/.config-dotfiles-backup"
+readonly BACKUP_DIR="$BACKUP_ROOT/kde-$(date +%Y%m%d-%H%M%S)-$$"
+readonly KWIN_SOURCE="$REPO_DIR/kwin/kwinrc"
+
+APPLY_THEME=1
+ASSUME_YES=0
+BACKUP_CREATED=0
+TEMP_DIR=""
+
+usage() {
+    cat <<'EOF'
+Usage: ./install.sh [options]
+
+Install the Konsole profile and portable KDE Plasma theme for the current user.
+
+Options:
+  -y, --yes          Reset the Plasma desktop and panel layout without prompting
+      --install-only Install files and config keys without changing the live desktop
+  -h, --help         Show this help
+EOF
+}
+
+log() {
+    printf '\n==> %s\n' "$*"
+}
+
+warn() {
+    printf 'warning: %s\n' "$*" >&2
+}
+
+die() {
+    printf 'error: %s\n' "$*" >&2
+    exit 1
+}
+
+cleanup() {
+    if [[ -n "$TEMP_DIR" && -d "$TEMP_DIR" ]]; then
+        rm -rf -- "$TEMP_DIR"
+    fi
+}
+
+confirm_layout_reset() {
+    local answer
+
+    if [[ "$ASSUME_YES" -eq 1 ]]; then
+        return 0
+    fi
+
+    read -r -p "Replace the current Plasma desktop and panel layout? [y/N] " answer
+    case "$answer" in
+        y|Y|yes|YES) return 0 ;;
+        *) return 1 ;;
+    esac
+}
+
+require_command() {
+    command -v "$1" >/dev/null 2>&1 || die "required command not found: $1"
+}
+
+backup_existing() {
+    local target="$1"
+    local backup_name="$2"
+    local backup_path="$BACKUP_DIR/$backup_name"
+
+    [[ -e "$target" || -L "$target" ]] || return 0
+    [[ -e "$backup_path" || -L "$backup_path" ]] && return 0
+
+    mkdir -p -- "$(dirname -- "$backup_path")"
+    cp -a -- "$target" "$backup_path"
+    BACKUP_CREATED=1
+}
+
+install_file() {
+    local source="$1"
+    local target="$2"
+    local backup_name="$3"
+
+    [[ -f "$source" ]] || die "missing source file: $source"
+
+    if [[ -f "$target" ]] && cmp -s -- "$source" "$target"; then
+        return 0
+    fi
+
+    backup_existing "$target" "$backup_name"
+    install -Dm644 -- "$source" "$target"
+}
+
+read_kwin_value() {
+    local group="$1"
+    local key="$2"
+
+    kreadconfig6 --file "$KWIN_SOURCE" --group "$group" --key "$key"
+}
+
+write_config() {
+    local file="$1"
+    local group="$2"
+    local key="$3"
+    local value="$4"
+    local type="${5:-string}"
+    local args=(--file "$file" --group "$group" --key "$key")
+
+    if [[ "$type" == "bool" ]]; then
+        args+=(--type bool)
+    fi
+
+    kwriteconfig6 "${args[@]}" "$value"
+}
+
+copy_kwin_key() {
+    local group="$1"
+    local key="$2"
+    local type="${3:-string}"
+
+    write_config "$CONFIG_HOME/kwinrc" "$group" "$key" \
+        "$(read_kwin_value "$group" "$key")" "$type"
+}
+
+render_layout() {
+    local source="$REPO_DIR/.local/share/plasma/look-and-feel/ayaws/contents/layouts/org.kde.plasma.desktop-layout.js"
+    local target="$TEMP_DIR/org.kde.plasma.desktop-layout.js"
+    local wallpaper_uri="file://$DATA_HOME/wallpapers/ayaws/contents/images/4000x2250.png"
+    local replacement
+
+    cp -- "$source" "$target"
+
+    replacement=${wallpaper_uri//\\/\\\\}
+    replacement=${replacement//\"/\\\"}
+    replacement=${replacement//&/\\&}
+    replacement=${replacement//|/\\|}
+    sed -i "s|@WALLPAPER_URI@|$replacement|g" "$target"
+
+    printf '%s\n' "$target"
+}
+
+install_theme_files() {
+    local look_and_feel="$REPO_DIR/.local/share/plasma/look-and-feel/ayaws"
+    local wallpaper="$REPO_DIR/.local/share/wallpapers/ayaws/contents/images/4000x2250.png"
+    local rendered_layout
+
+    rendered_layout="$(render_layout)"
+
+    log "Installing Konsole profile and color scheme"
+    install_file "$REPO_DIR/.config/konsolerc" \
+        "$CONFIG_HOME/konsolerc" ".config/konsolerc"
+    install_file "$REPO_DIR/.local/share/konsole/clipsneko.profile" \
+        "$DATA_HOME/konsole/clipsneko.profile" ".local/share/konsole/clipsneko.profile"
+    install_file "$REPO_DIR/.local/share/konsole/catppuccin-mocha.colorscheme" \
+        "$DATA_HOME/konsole/catppuccin-mocha.colorscheme" ".local/share/konsole/catppuccin-mocha.colorscheme"
+
+    log "Installing the ayaws Plasma theme and wallpaper"
+    install_file "$look_and_feel/metadata.json" \
+        "$DATA_HOME/plasma/look-and-feel/ayaws/metadata.json" \
+        ".local/share/plasma/look-and-feel/ayaws/metadata.json"
+    install_file "$look_and_feel/contents/defaults" \
+        "$DATA_HOME/plasma/look-and-feel/ayaws/contents/defaults" \
+        ".local/share/plasma/look-and-feel/ayaws/contents/defaults"
+    install_file "$rendered_layout" \
+        "$DATA_HOME/plasma/look-and-feel/ayaws/contents/layouts/org.kde.plasma.desktop-layout.js" \
+        ".local/share/plasma/look-and-feel/ayaws/contents/layouts/org.kde.plasma.desktop-layout.js"
+    install_file "$wallpaper" \
+        "$DATA_HOME/wallpapers/ayaws/contents/images/4000x2250.png" \
+        ".local/share/wallpapers/ayaws/contents/images/4000x2250.png"
+}
+
+configure_theme() {
+    log "Merging portable KDE and KWin appearance settings"
+
+    backup_existing "$CONFIG_HOME/kdeglobals" ".config/kdeglobals"
+    backup_existing "$CONFIG_HOME/kcminputrc" ".config/kcminputrc"
+    backup_existing "$CONFIG_HOME/kwinrc" ".config/kwinrc"
+    backup_existing "$CONFIG_HOME/plasmarc" ".config/plasmarc"
+    backup_existing "$CONFIG_HOME/ksplashrc" ".config/ksplashrc"
+
+    write_config "$CONFIG_HOME/kdeglobals" "KDE" "LookAndFeelPackage" "ayaws"
+    write_config "$CONFIG_HOME/kdeglobals" "General" "ColorScheme" "BreezeDark"
+    write_config "$CONFIG_HOME/kdeglobals" "Icons" "Theme" "breeze-dark"
+    write_config "$CONFIG_HOME/kdeglobals" "KDE" "widgetStyle" "Breeze"
+    write_config "$CONFIG_HOME/kcminputrc" "Mouse" "cursorTheme" "Breeze_Light"
+    write_config "$CONFIG_HOME/plasmarc" "Theme" "name" "default"
+    write_config "$CONFIG_HOME/ksplashrc" "KSplash" "Engine" "KSplashQML"
+    write_config "$CONFIG_HOME/ksplashrc" "KSplash" "Theme" "org.kde.breeze.desktop"
+
+    write_config "$CONFIG_HOME/kwinrc" "DesktopSwitcher" "LayoutName" "org.kde.breeze.desktop"
+    write_config "$CONFIG_HOME/kwinrc" "WindowSwitcher" "LayoutName" "org.kde.breeze.desktop"
+    copy_kwin_key "Plugins" "shapecornersEnabled" "bool"
+    copy_kwin_key "Round-Corners" "InactiveCornerRadius"
+    copy_kwin_key "Round-Corners" "InactiveOutlineThickness"
+    copy_kwin_key "Round-Corners" "InactiveSecondOutlineThickness"
+    copy_kwin_key "Round-Corners" "OutlineThickness"
+    copy_kwin_key "Round-Corners" "SecondOutlineThickness"
+    copy_kwin_key "Round-Corners" "Size"
+    copy_kwin_key "org.kde.kdecoration2" "BorderSize"
+    copy_kwin_key "org.kde.kdecoration2" "BorderSizeAuto" "bool"
+    copy_kwin_key "org.kde.kdecoration2" "ButtonsOnLeft"
+    copy_kwin_key "org.kde.kdecoration2" "ButtonsOnRight"
+    copy_kwin_key "org.kde.kdecoration2" "library"
+    copy_kwin_key "org.kde.kdecoration2" "theme"
+}
+
+apply_live_theme() {
+    if ! confirm_layout_reset; then
+        warn "layout reset skipped; files and appearance settings are still installed"
+        warn "apply it later with: plasma-apply-lookandfeel --apply ayaws --resetLayout"
+        return 0
+    fi
+
+    require_command plasma-apply-lookandfeel
+
+    backup_existing "$CONFIG_HOME/plasma-org.kde.plasma.desktop-appletsrc" \
+        ".config/plasma-org.kde.plasma.desktop-appletsrc"
+
+    log "Applying the ayaws global theme and Plasma layout"
+    plasma-apply-lookandfeel --apply ayaws --resetLayout
+
+    # Applying a global theme may rewrite the decoration defaults, so merge
+    # the current KWin-specific appearance settings once more afterwards.
+    configure_theme
+
+    if command -v qdbus6 >/dev/null 2>&1; then
+        qdbus6 org.kde.KWin /KWin reconfigure >/dev/null 2>&1 || \
+            warn "KWin could not be reloaded; log out and back in to apply all changes"
+    fi
+}
+
+main() {
+    while [[ "$#" -gt 0 ]]; do
+        case "$1" in
+            -y|--yes)
+                ASSUME_YES=1
+                ;;
+            --install-only)
+                APPLY_THEME=0
+                ;;
+            -h|--help)
+                usage
+                exit 0
+                ;;
+            *)
+                usage >&2
+                die "unknown option: $1"
+                ;;
+        esac
+        shift
+    done
+
+    [[ "$EUID" -ne 0 ]] || die "run this script as your normal user, not root"
+    [[ "$CONFIG_HOME" == /* ]] || die "XDG_CONFIG_HOME must be an absolute path"
+    [[ "$DATA_HOME" == /* ]] || die "XDG_DATA_HOME must be an absolute path"
+
+    require_command cmp
+    require_command install
+    require_command kreadconfig6
+    require_command kwriteconfig6
+    require_command sed
+
+    TEMP_DIR="$(mktemp -d)"
+    trap cleanup EXIT
+
+    install_theme_files
+    configure_theme
+
+    if [[ "$APPLY_THEME" -eq 1 ]]; then
+        apply_live_theme
+    else
+        warn "live Plasma layout application was skipped (--install-only)"
+    fi
+
+    if [[ "$BACKUP_CREATED" -eq 1 ]]; then
+        log "Previous files were backed up to $BACKUP_DIR"
+    fi
+
+    log "KDE and Konsole theme installation complete"
+}
+
+main "$@"
