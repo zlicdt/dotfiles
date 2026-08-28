@@ -1,0 +1,13 @@
+[SddmGreeterTheme]
+Name=Breeze Clipsneko
+Description=Breeze SDDM theme with the Clipsneko background
+Author=ReSpringClipsNeko
+License=CC-BY-SA
+Type=sddm-theme
+Version=1.0
+Screenshot=preview.png
+MainScript=Main.qml
+ConfigFile=theme.conf
+Theme-Id=breeze-clipsneko
+Theme-API=2.0
+QtVersion=6

@@ -1,36 +1,69 @@
 ## kde
 This repository stores my desktop configuration. The main branch will keep updated with the configuration on my computer.
 
-### Restore Konsole and KDE appearance
-This directory contains a portable snapshot of the current Plasma 6 appearance:
+### Restore Konsole, KDE appearance, and SDDM
+This directory contains an Arch package for the portable part of the current Plasma 6 setup:
 
 - Konsole `clipsneko` profile with the bundled Catppuccin Mocha color scheme
 - Breeze Dark colors, Breeze widgets and icons, and the Breeze Light cursor
 - The `ayaws` global theme, current wallpaper, desktop layout, and bottom panel
 - Breeze window decoration, title-bar button order, and rounded-corner effect settings
+- The Breeze-based `breeze-clipsneko` SDDM theme and the current SDDM settings
 
-On an Arch Linux Plasma 6 system, install the dependencies first:
+The package installs system files and a user-facing helper. It deliberately does not
+write a guessed user's home directory from a root pacman transaction.
+
+On a new Arch Linux system, install the AUR rounded-corners effect first (it is a
+required package dependency but is not in the official repositories), then build and
+install this package:
 
 ```bash
-sudo pacman -S ttf-ubuntu-mono-nerd
-# Install kwin-effect-rounded-corners-git from the AUR as well.
+paru -S kwin-effect-rounded-corners-git
+makepkg -si
+clipsneko-kde-configure
 ```
 
-Run the installer from this directory after logging in to Plasma:
+After logging in to Plasma, `clipsneko-kde-configure` backs up changed files under
+`~/.config-dotfiles-backup`, installs the Konsole and Plasma files using the target
+user's XDG paths, and asks before replacing the current desktop and panel layout.
+Use `clipsneko-kde-configure --yes` for an unattended new-system install, or
+`clipsneko-kde-configure --install-only` when no Plasma session is running.
+
+For a one-command source-tree workflow, the compatibility wrapper builds the package,
+installs it, and then runs the helper:
 
 ```bash
 ./install.sh
 ```
 
-The installer backs up changed files under `~/.config-dotfiles-backup`, installs
-the theme using the target user's XDG paths, and asks before replacing the
-current desktop and panel layout. Use `./install.sh -y` for an unattended new
-system install, or `./install.sh --install-only` when no Plasma session is
-running.
+`./install.sh -y` passes `--noconfirm` to makepkg/pacman and resets the Plasma
+layout without prompting.
 
-Display scaling, monitor output settings, mouse device settings, virtual desktop
-IDs, and tiling layouts are intentionally not copied because they are tied to a
-specific machine or Plasma session.
+The package does not enable display-manager services automatically. Enable SDDM
+after confirming the new system is ready:
+
+```bash
+sudo systemctl enable sddm.service
+```
+
+### What Is Not Portable
+After the package and helper finish, the following current-host state is still
+intentionally different or requires a separate choice:
+
+- Display scaling and monitor output settings (`kwinoutputconfig.json`)
+- Per-device mouse settings and hardware IDs (for example Logitech pointer acceleration)
+- Virtual-desktop UUIDs and any saved tiling layout UUIDs
+- Global shortcuts, KWin window rules, power-management policy, lock-screen policy,
+  Dolphin/application settings, MIME/default applications, and shell configuration
+- Fcitx5 user state, dictionaries, and input-method theme settings
+- Generated GTK compatibility files and the live `plasmashellrc` runtime panel state
+
+The package does include the current panel/layout template and the SDDM background.
+Installed KDE applets and services (NetworkManager, audio, Bluetooth, KDE Connect,
+Vault, printing, and power management) must still exist on the target system for
+their panel entries to be useful. Package updates may also refresh the system Breeze
+files referenced by `breeze-clipsneko`; rebuild this package if the upstream SDDM
+theme changes its file layout.
 
 ### Before Using
 Some of the configurations may not fit your environment and may require special attention.

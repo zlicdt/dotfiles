@@ -1,0 +1,94 @@
+# Maintainer: zlicdt <zlicdt@clipsneko.cc>
+pkgname=clipsneko-plasma
+pkgver=0.2.7
+pkgrel=1
+pkgdesc='ClipsNeko Linux KDE plasma dotfiles'
+arch=('any')
+license=('custom')
+depends=(
+  'plasma'
+  'kde-system'
+  'kde-utilities'
+)
+
+backup=('etc/sddm.conf.d/90-kde-dotfiles.conf')
+install=clipsneko-kde-config.install
+
+local_source() {
+  local name="$1"
+  local path="$2"
+
+  if [[ -f "$startdir/$path" ]]; then
+    printf '%s::file://%s\n' "$name" "$startdir/$path"
+  else
+    # makepkg --source flattens local sources into the source package. Allow
+    # that generated package to be rebuilt on another machine.
+    printf '%s::file://%s\n' "$name" "$startdir/$name"
+  fi
+}
+
+source=(
+  "$(local_source clipsneko-kde-configure clipsneko-kde-configure)"
+  "$(local_source konsolerc .config/konsolerc)"
+  "$(local_source clipsneko.profile .local/share/konsole/clipsneko.profile)"
+  "$(local_source catppuccin-mocha.colorscheme .local/share/konsole/catppuccin-mocha.colorscheme)"
+  "$(local_source metadata.json .local/share/plasma/look-and-feel/ayaws/metadata.json)"
+  "$(local_source defaults .local/share/plasma/look-and-feel/ayaws/contents/defaults)"
+  "$(local_source org.kde.plasma.desktop-layout.js .local/share/plasma/look-and-feel/ayaws/contents/layouts/org.kde.plasma.desktop-layout.js)"
+  "$(local_source 4000x2250.png .local/share/wallpapers/ayaws/contents/images/4000x2250.png)"
+  "$(local_source kwinrc kwin/kwinrc)"
+  "$(local_source background.png sddm/background.png)"
+  "$(local_source kde_settings.conf sddm/kde_settings.conf)"
+  "$(local_source theme.conf sddm/theme.conf)"
+  "$(local_source metadata.desktop sddm/metadata.desktop)"
+)
+sha256sums=(
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+  'SKIP'
+)
+
+package() {
+  local data_root="$pkgdir/usr/share/kde-dotfiles"
+  local sddm_theme="$pkgdir/usr/share/sddm/themes/breeze-clipsneko"
+
+  install -Dm755 "$srcdir/clipsneko-kde-configure" \
+    "$pkgdir/usr/bin/clipsneko-kde-configure"
+
+  install -Dm644 "$srcdir/konsolerc" \
+    "$data_root/.config/konsolerc"
+  install -Dm644 "$srcdir/clipsneko.profile" \
+    "$data_root/.local/share/konsole/clipsneko.profile"
+  install -Dm644 "$srcdir/catppuccin-mocha.colorscheme" \
+    "$data_root/.local/share/konsole/catppuccin-mocha.colorscheme"
+  install -Dm644 "$srcdir/metadata.json" \
+    "$data_root/.local/share/plasma/look-and-feel/ayaws/metadata.json"
+  install -Dm644 "$srcdir/defaults" \
+    "$data_root/.local/share/plasma/look-and-feel/ayaws/contents/defaults"
+  install -Dm644 "$srcdir/org.kde.plasma.desktop-layout.js" \
+    "$data_root/.local/share/plasma/look-and-feel/ayaws/contents/layouts/org.kde.plasma.desktop-layout.js"
+  install -Dm644 "$srcdir/4000x2250.png" \
+    "$data_root/.local/share/wallpapers/ayaws/contents/images/4000x2250.png"
+  install -Dm644 "$srcdir/kwinrc" "$data_root/kwin/kwinrc"
+
+  install -d "$sddm_theme"
+  for file in Main.qml Background.qml KeyboardButton.qml Login.qml \
+      SessionButton.qml default-logo.svg preview.png Messages.sh; do
+    ln -s "../breeze/$file" "$sddm_theme/$file"
+  done
+  install -Dm644 "$srcdir/metadata.desktop" "$sddm_theme/metadata.desktop"
+  install -Dm644 "$srcdir/theme.conf" "$sddm_theme/theme.conf"
+  install -Dm644 "$srcdir/background.png" "$sddm_theme/background.png"
+  install -Dm644 "$srcdir/kde_settings.conf" \
+    "$pkgdir/etc/sddm.conf.d/90-kde-dotfiles.conf"
+}
