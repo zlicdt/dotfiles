@@ -1,14 +1,14 @@
 # Maintainer: zlicdt <zlicdt@clipsneko.cc>
 pkgname=clipsneko-plasma
-pkgver=0.2.7
+pkgver=0.1.0
 pkgrel=1
 pkgdesc='ClipsNeko Linux KDE plasma dotfiles'
 arch=('any')
 license=('custom')
 depends=(
-  'plasma'
-  'kde-system'
-  'kde-utilities'
+  'plasma-meta'
+  'kde-system-meta'
+  'kde-utilities-meta'
 )
 
 backup=('etc/sddm.conf.d/90-kde-dotfiles.conf')
