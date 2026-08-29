@@ -1,6 +1,6 @@
 # Maintainer: zlicdt <zlicdt@clipsneko.cc>
 pkgname=clipsneko-plasma
-pkgver=0.1.0
+pkgver=0.2.7
 pkgrel=1
 pkgdesc='ClipsNeko Linux KDE plasma dotfiles'
 arch=('any')
